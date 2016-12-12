@@ -124,12 +124,18 @@ Use background images and show a spinner while the image is being fetched.
           self.toggleClass('is-loading', false);
           Polymer.dom(self.root).removeChild(self.$$('svg'));
           self.customStyle['--bg-image'] = 'url(' + self.src + ')';
-//          self.customStyle['--bg-image'] = 'green';
           self.updateStyles();
-
-          console.log(Polymer.dom(self.root).style);
-
         });
+
+        imageElement.addEventListener('error', function () {
+          self.toggleClass('is-loading', false);
+          Polymer.dom(self.root).removeChild(self.$$('svg'));
+
+          // Show placeholder instead of image.
+          self.customStyle['--bg-image'] = 'url(/assets/placeholder.jpg)';
+          self.updateStyles();
+        });
+
         imageElement.setAttribute('src', this.src);
       }
     });
