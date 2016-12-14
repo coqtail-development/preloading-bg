@@ -110,12 +110,11 @@ Use background images and show a spinner while the image is being fetched.
         }
       },
 
-      created: function () {
-      },
-
-      attached: function () {
+      ready: function () {
         var imageElement = document.createElement('img');
-        imageElement.setAttribute('class', this.image_class);
+        if (this.image_class) {
+          imageElement.setAttribute('class', this.image_class);
+        }
 
         this.toggleClass('is-loading', true);
 
